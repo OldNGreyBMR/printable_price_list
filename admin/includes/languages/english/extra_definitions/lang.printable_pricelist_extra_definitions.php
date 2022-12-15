@@ -1,0 +1,11 @@
+<?php
+// -----
+// Part of the "Printable Pricelist" plugin by Cindy Merkin (cindy@vinosdefrutastropicales.com)
+// Copyright (c) 2015-2021 Vinos de Frutas Tropicales
+// OldNGrey zc158 2022-12-15
+$define = [
+    'BOX_HEADING_PRICELIST' => 'View Price Listing',
+    ];
+return $define
+
+?>
