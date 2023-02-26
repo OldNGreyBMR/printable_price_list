@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  *
  * @copyright Copyright 2003-2007 Paul Mathot Haarlem, The Netherlands
  * @copyright parts Copyright 2003-2005 Zen Cart Development Team
@@ -7,6 +7,8 @@
  * @version v1.5.7 (or newer) v1.5.8 BMH
  */
  // BMH 2022-12-05 ln92 strftime() replace with $zcDate->output
+ //					ln69 github Fixes incorrectly coded function call #23 [ https://github.com/lat9/printable_price_list/pull/23/commits/1f9d443aa541533b417c506ec25c4586995054fa ]
+ //BMH 2023-02-24 ln27 remove zencart link
 ?>
 <body id="pricelist">
     <div class="noPrintPL">
@@ -21,7 +23,8 @@ if ($price_list->config['show_logo']) {
     echo '<a href="' . zen_href_link(FILENAME_DEFAULT) . '">' . zen_image($template->get_template_dir(HEADER_LOGO_IMAGE, DIR_WS_TEMPLATE, $current_page_base, 'images') . '/' . HEADER_LOGO_IMAGE, HEADER_ALT_TEXT) . '</a>';
 }
 ?>
-            <h3><?php echo sprintf(TEXT_PL_HEADER_TITLE, '<a href="' . zen_href_link(FILENAME_DEFAULT) . '">' . TITLE . '</a>'); ?></h3>
+            <h3><?php // bmh echo sprintf(TEXT_PL_HEADER_TITLE, '<a href="' . zen_href_link(FILENAME_DEFAULT) . '">' . TITLE . '</a>'); ?></h3>
+            <h3><?php echo sprintf(TEXT_PL_HEADER_TITLE, ' '  . TITLE  ); // BMH remove zencart link ?></h3>
             <p><?php echo sprintf(TEXT_PL_SCREEN_INTRO, $price_list->product_count); ?></p>
         </div>
 <?php
@@ -31,7 +34,7 @@ if (PL_SHOW_PROFILES === 'true') {
     if ($profiles_list != '') {
         echo '<div id="profilesListPL">' . $profiles_list . '</div>' . "\n";
     }
-} 
+}
 if ($price_list->config['show_boxes']) {
     $column_box_default = 'tpl_box_default.php';
 ?>
@@ -45,7 +48,7 @@ if ($price_list->config['show_boxes']) {
 ?>
                 <td>
                     <div id="categoriesPLContent" class="sideBoxContent centeredContent">
-                        <?php echo 
+                        <?php echo
                             zen_draw_form('categories', zen_href_link(FILENAME_DEFAULT), 'get') . "\n" .
                             zen_draw_pull_down_menu('plCat', $cat_tree, $price_list->current_category, 'onchange="this.form.submit();"') .
                             zen_draw_hidden_field('main_page', FILENAME_PRICELIST) .
@@ -59,15 +62,15 @@ if ($price_list->config['show_boxes']) {
             </tr>
         </table>
 <?php
-} 
+}
 ?>
     </div>
 <?php
 if (!$price_list->group_is_valid($price_list->current_profile)) {
     // customer is not allowed to view price_list list
     echo PL_TEXT_GROUP_NOT_ALLOWED;
-    if (zen_is_logged_in() && !zen_in_guest_checkout) {
-        echo '<a href="'. zen_href_link(FILENAME_LOGOFF, '', 'SSL') . '">' . HEADER_TITLE_LOGOFF . '</a>';  
+    if (zen_is_logged_in() && !zen_in_guest_checkout()) {
+        echo '<a href="'. zen_href_link(FILENAME_LOGOFF, '', 'SSL') . '">' . HEADER_TITLE_LOGOFF . '</a>';
     } elseif (STORE_STATUS == '0'){
         echo '&nbsp;(<a href="'. zen_href_link(FILENAME_LOGIN, '', 'SSL') . '">' . HEADER_TITLE_LOGIN . '</a>)';
     }
@@ -90,7 +93,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
 <?php
         }
 ?>
-                    <div class="datePL"><?php echo $zcDate->output(DATE_FORMAT_LONG)?>
+                    <div class="datePL"><?php echo zcDate->output(DATE_FORMAT_LONG)?>
                     </div>
                     <div id="print-me"><a href="javascript:window.print();"><?php echo PL_PRINT_ME; ?></a></div>
                     <div class="clearBoth"></div>
@@ -183,7 +186,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
             } else {
                 $products_id = $current_row['products_id'];
                 $products_name = zen_output_string_protected($current_row['products_name']);
-                
+
                 // -----
                 // If the price-list is to display products' pricing (either inc or ex), get the product's 'base' price
                 // for the display.  That'll include any attribute-based pricing, too.
@@ -335,7 +338,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
 
                 $price_class = ($special_price_ex > 0) ? 'prcPL notSplPL' : 'prcPL';
                 if ($price_list->config['show_price']) {
-?>        
+?>
                     <td class="<?php echo $price_class; ?>"><?php echo $products_price_inc; ?></td>
 <?php
                 }
@@ -379,7 +382,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
                     $colspan = $price_list->header_columns;
                     if ($price_list->config['show_price']) {
                         $colspan--;
-                    } 
+                    }
                     if ($price_list->config['show_taxfree']) {
                         $colspan--;
                     }
@@ -411,7 +414,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
 ?>
                 </td>
             </tr>
-<?php     
+<?php
                 }
             }
         }
