@@ -4,11 +4,14 @@
  * @copyright Copyright 2003-2007 Paul Mathot Haarlem, The Netherlands
  * @copyright parts Copyright 2003-2005 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version v1.5.7 (or newer) v1.5.8 BMH
+ * @version 3.0.1 for  zc v1.5.7 or v1.5.8 V 1.5.8a BMH
+ * Version 3.0.1b
  */
  // BMH 2022-12-05 ln92 strftime() replace with $zcDate->output
  //					ln69 github Fixes incorrectly coded function call #23 [ https://github.com/lat9/printable_price_list/pull/23/commits/1f9d443aa541533b417c506ec25c4586995054fa ]
- //BMH 2023-02-24 ln27 remove zencart link
+ // BMH 2023-02-24 ln27 remove zencart link
+ // BMH 2023-12-17 ln 314 null operand if manufactures left in default report
+ // BMH 2023-12-17 ln320 weight; ln448 $db->count_queries;
 ?>
 <body id="pricelist">
     <div class="noPrintPL">
@@ -93,7 +96,7 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
 <?php
         }
 ?>
-                    <div class="datePL"><?php echo zcDate->output(DATE_FORMAT_LONG)?>
+                    <div class="datePL"><?php echo $zcDate->output(DATE_FORMAT_LONG)?>
                     </div>
                     <div id="print-me"><a href="javascript:window.print();"><?php echo PL_PRINT_ME; ?></a></div>
                     <div class="clearBoth"></div>
@@ -311,12 +314,12 @@ if (!$price_list->group_is_valid($price_list->current_profile)) {
                 }
                 if ($price_list->config['show_manufacturer']) {
 ?>
-                <td class="manPL"><div><?php echo $price_list->manufacturers_names[(int)$current_row['manufacturers_id']]; ?></div></td>
+                <td class="manPL"><div><?php echo $price_list->manufacturers_names [(int)$current_row['manufacturers_id'] ] ?? '';  // BMH 2023-12-17 ?></div></td>
 <?php
                 }
                 if ($price_list->config['show_weight']) {
 ?>
-                <td class="wgtPL"><div><?php echo $current_row['products_weight']; ?></div></td>
+                <td class="wgtPL"><div><?php echo $current_row['products_weight'] ?? ''; ?></div></td>
 <?php
                 }
                 // stock by bmoroney
@@ -443,7 +446,8 @@ if ($price_list->config['debug']) {
     if (function_exists ('memory_get_peak_usage')) {
         echo ',&nbsp;memory_get_peak_usage: ' . memory_get_peak_usage();
     }
-    echo ',&nbsp;queries: ' . $db->count_queries;
+    // echo ',&nbsp;queries: ' . $db->count_queries; // BMH 2023-12-17
+    echo ',&nbsp;queries: ' . $db->queryCount();
     echo ',&nbsp;query time: ' . $db->total_query_time;
 ?>
         </p>
