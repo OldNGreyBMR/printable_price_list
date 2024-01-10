@@ -26,9 +26,9 @@ img { margin-left: 20px; max-width: 95%; }
 </head>
 
 <body>
-<h1>Printable Price List &mdash;  for Zen Cart v1.5.8 and later with PHP 8.0 and 8.1</h1>
-<h3>Version 3.0.1.  <span class="smaller">Copyright &copy; 2014-2021, Vinos de Frutas Tropicales</span></h3>
-<h3> This version will not work on earlier versions of Zen Cart</h3>
+<h1>Printable Price List &mdash;  for Zen Cart v1.5.8 and later with PHP 8.0, 8.1 and 8.2</h1>
+<h3>Version 3.0.1c.  <span class="smaller">Copyright &copy; 2014-2024, Vinos de Frutas Tropicales</span></h3>
+<h3> This version will not work on versions of Zen Cart earlier than 1.5.7</h3>
 <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?49126-Printable-Price-list-support-thread" target="_blank">https://www.zen-cart.com/showthread.php?49126-Printable-Price-list-support-thread</a></p>
 <div id="permissions">
   <p><strong>Note:</strong> This plugin's file-set includes a new folder: <code>/includes/templates/template_default/pricelist</code>. If your store creates debug-log files similar to the following upon an access to <code>http://www.example.com/index.php?main_page=pricelist</code>, you'll need to check the permissions assigned to this new folder and its associated files: 755 and 644, respectively.</p>
@@ -36,6 +36,7 @@ img { margin-left: 20px; max-width: 95%; }
 </div>
 
 <h3>Credits</h3>
+<p>Minor updates for later PHP version by OldNGrey BMR</p>
 <p>This version of the plugin is based on v1.5.0 of the like-named plugin for the Zen Cart v1.3.x series, created by:
 <ul>
   <li>Rinalds Uzkalns (a small part of the code is still based on his osc list)</li>
@@ -86,7 +87,7 @@ img { margin-left: 20px; max-width: 95%; }
   <li>Rename the /includes/modules/sideboxes/YOUR_TEMPLATE folder, changing YOUR_TEMPLATE to match your current template's name.  If your current template already includes changes to the information.php sidebox, you'll need to merge those pre-existing changes with the change introduced by this plugin.</li>
   <li>Sign into your Zen Cart admin console.</li>
   <li>Copy the plugin's files to your store's file system.<ol>
-    <li>/includes/extra_definitions/pricelist_filenames.php</li>
+    <li>/includes/extra_datafiles/pricelist_filenames.php</li>
     <li>/includes/languages/dutch/pricelist.php</li>
     <li>/includes/languages/dutch/extra_definitions/printable_pricelist_extra_definitions.php</li>
     <li>/includes/languages/english/pricelist.php</li>
@@ -111,6 +112,19 @@ img { margin-left: 20px; max-width: 95%; }
 <hr />
 <h2>Version History</h2>
 <ul>
+  <li>v3.0.1c, 2024-01-10 (OldNGrey BMR):<ol>
+  <li>CHANGE: github folder structure to use YOUR_ADMIN and YOUR_TEMPLATE</li>
+  <li>CHANGE: copy Dutch language files from earlier version</li>
+  </ol> </li>
+  <li>v3.0.1, 2023-12-18 (OldNGrey BMR):<ol>
+  <li>CHANGE: update language file to zc158 format includes/languages/english/lang.pricelist.php</li>
+  <li>CHANGE: declare variables for PHP8.2</li>
+  <li>CHANGE: strftime() replace with $zcDate->output</li>
+  <li>BUGFIX: apply github Fixes incorrectly coded function call #23 [  https://github.com/lat9/printable_price_list/pull/23/commits/1f9d443aa541533b417c506ec25c4586995054fa ]</li>
+  <li>CHANGE: apply null operand if manufactures left in default report and not used in database </li>
+  <li>CHANGE: apply null operand if products_weight left in default report and not used in database </li>
+  <li>CHANGE: replace db->count_queries; with  $db->queryCount()</li>
+  </ol> </li>
   <li>v3.0.0, 2021-11-18 (lat9):<ol>
     <li>CHANGE: Minimum Zen Cart version is now zc157.</li>
     <li>BUGFIX: Include 'date_added' when creating initial configuration settings.</li>
