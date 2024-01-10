@@ -4,7 +4,7 @@
  * @copyright Copyright 2003-2007 Paul Mathot Haarlem, The Netherlands
  * @copyright parts Copyright 2003-2005 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version 3.0.1 for  zc v1.5.7 or v1.5.8 V1.5.8a OldNGrey (BMH)
+ * @version 3.0.1 for  zc v1.5.7 or v1.5.8 V1.5.8a BMH
  * Version 3.0.1c
  */
  // BMH 2022-12-05 ln92 strftime() replace with $zcDate->output
