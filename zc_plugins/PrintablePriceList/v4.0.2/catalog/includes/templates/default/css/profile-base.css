@@ -1,0 +1,112 @@
+/**
+ * $Id: stylesheet.css, v1.02 2004/12/20 paulm
+ * Updated: 2026-09-05 OldNGrey V4.02
+ *   corrected syntax error that has existed since forever; removed unused selectors: #optionsPL, .selectionPL, .selectionPl table
+ *   consolidated duplicate .pagePL/.pageOnePL rules into a single rule
+ *   normalized @media print indentation; increased on screen font size from  0.6em to 0.8rem  ln53
+ * 2026-09-06
+ *   print output now full-bleeds the price list to the printed page width so it aligns with the site footer
+ *   when the store template uses a max-width Bootstrap  '.container' (e.g. the BMH bootstrap templates)  print rule
+ * 'a' => 'a:link, a:visited' so link underlines are removed even when  a template stylesheet (e.g. BMH bootstrap) sets 'a { text-decoration: underline }'
+ */
+
+body, html {  text-align: center; font-family: Arial, serif; color: black; background-color: #eee; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0.3em; }
+h1 { color: #e00; font-family: Verdana, sans-serif; }
+img { border-style: none; }
+td { text-align: left; }
+
+table { margin: 0 auto; }
+table.tablePL { border: 1px silver solid; margin: 0 auto; }
+.pl-attr-table { margin: 0; width: 100%; background-color: #fff; }
+tfoot { background-color: #dcdcdc; }
+
+/* profiles navigation */
+div#profilesListPL { height: 30px; width: 100%; border-top: solid #000 1px; border-bottom: solid #000 1px; background-color: #336699; }
+div#profilesListPL ul { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-size: small; color: #FFF; line-height: 30px; white-space: nowrap; }
+div#profilesListPL li { list-style-type: none; display: inline; }
+div#profilesListPL li a { text-decoration: none; padding: 7px 10px; color: #FFF; }
+div#profilesListPL li a:link { color: #FFF; }
+div#profilesListPL li a:visited { color: #CCC; }
+div#profilesListPL li a:hover { color: #FFF; background-color: #3366FF; }
+div#profilesListPL ul li.selectedPL a { color: white !important; background-color: #3366FF; }
+/* end profiles navigation */
+
+/* prevents header margin differences between browsers */
+#languagesPL, #currenciesPL { width: 125px; margin: 5px; }
+#boxesPL td form { margin: 0; padding: 0; }
+
+/* BMH bof */
+/* sr added to ovecome absolute positioning issues */
+.sr-only {position:relative !important;}
+ form[name="currencies_form"] {
+     display: flex;
+}
+ form[name="categories"] {
+     display: flex;
+}
+button.btn.btn-success {
+    margin-left: 2px;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    line-height:auto;
+}
+#select-currency.custom-select, #select-plCat.custom-select {
+    margin-bottom: 0 !important;
+}
+
+/* BMH eof*/
+.notSplPL { text-decoration: line-through; }
+.inactivePL td { font-style: italic; font-weight: lighter; color: red; }
+.prcPL s, #navBreadCrumb, .alert, .zca-banner, .banners, div[class^="messageStack"] { display: none; }
+.splPL { color: red; }
+.wgtPL { text-align: center; }
+
+.pagePL, .pageOnePL { position: relative; margin: 0 auto 20px; color: black; background-color: white; width: 95%; border: 1px blue solid; }
+
+.datePL, #print-me { text-align: right; }
+.imgPL { float: left; margin-right: 1rem; }
+.headPL { float: left; }
+.footPL { font-size: 0.9em; width: 100%; text-align: center; margin-top: 1rem; }
+.clearBoth { clear: both; }
+
+.tablePL td, .tablePL th { font-family: Verdana, sans-serif; font-size: 0.8rem; border: #ddf solid 1px; padding: 2px; }
+.pl-attr-table td { font-size: 0.9em; }
+.theadPL td { text-align: center; font-size: 0.55em; border-width: 0; background-color: #f9f9f9; }
+
+/* bof added for image and description */
+.imgDescrPL div { border-bottom: 5px double #ddd; width: 100%; }
+.imgDescrPL div img { margin: 2px; }
+
+.scPL-1 th { font-style: italic; font-weight: bold; color: red; text-align: center; background: #ff9; border: 1px solid #ddf; }
+.scPL-2 th { font-weight: bold; color: red; background: #ffd; border: 1px solid #ddf; text-align: left; text-indent: 2em; }
+
+td.prcPL, td.splPL, td.splDatePL, td.sohPL { text-align: right; }
+
+@media print {
+    a:link, a:visited { text-decoration: none; }
+    tr.new-page { page-break-before: always !important; }
+    #print-me, .noPrintPL, #back-to-top { display: none; }
+    body, html { margin: 0; padding: 0; }
+
+    /* Full-bleed the price list so its print output spans the page width, matching
+       the full-width site footer. Bootstrap-based templates (e.g. BMH bootstrap)
+       wrap the page content in a max-width '.container', which prints centered
+       with wide left/right margins. */
+    .container, .container-fluid,
+    #header-wrapper, #mainWrapper, #footer-wrapper,
+    #mainWrapper .row,
+    #mainWrapper [class*="col-"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    table.tablePL { width: 100%; }
+
+    tbody tr { page-break-inside: avoid; }
+    thead { display: table-header-group; }
+    tbody { display: table-row-group; }
+    tfoot { display: table-footer-group; }
+}

@@ -1,0 +1,61 @@
+/**
+ * $Id: stylesheet.css, v1.02 2004/12/20 paulm
+ * Updated: 2026-09-05 OldNGrey V4.02
+ *   removed unused selector, cleaned trailing whitespace and whitespace-only lines,
+ *   cleaned selector spacing: 'body, html  {' => 'body, html {'
+ *   print output is cleaner and fill entire page
+ */
+/* screen or other media styles above this line or in the common stylesheet.css file */
+
+@media print {
+/* bof added for image and description */
+.imgDescrPL div { /* cm or inch height for printing */ height: 3cm; overflow: hidden; }
+
+/* pricelist print styles */
+/*
+td.prdPL => settings for the products
+td.manPL => settings for the manufacturers
+td.modPL => settings for models
+td.wgtPL => weight
+td.sohPL => stock (on hand)
+td.ntsaPL => notes a
+td.ntsbPL => notes b
+read the readme and/or look at the html source (browser::view::source) to discover other CSS classes
+*/
+
+td.prdPL div, td.manPL div, td.modPL div, td.wgtPL div { white-space: nowrap; overflow: hidden; }
+
+.footPL { clear: both; margin-top: 1rem; }
+body, html { padding: 0; margin: 0; color: black; background-color: white; }
+
+/* mirrored from profile-base.css: no underlined links in print */
+a:link, a:visited { text-decoration: none; }
+
+/* mirrored from profile-base.css: full-bleed so the price list spans the printed
+   page width, matching the full-width site footer on Bootstrap-based templates.
+   'min-width: 0' cancels Bootstrap's print 'body/.container { min-width: 992px !important }',
+   which otherwise widens the layout past the printable area, triggers Chrome's
+   print scaling and renders 1px borders sub-pixel (invisible). */
+.container, .container-fluid,
+#header-wrapper, #mainWrapper, #footer-wrapper,
+#mainWrapper .row,
+#mainWrapper [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* cancel Bootstrap's print '@page { size: a3 }' and body min-width overrides */
+@page { size: auto; }
+body { min-width: 0 !important; }
+
+table.tablePL { width: 100%; border-collapse: collapse; }
+.tablePL td, .tablePL th { border: 1px solid #ddf; }
+
+h1 { font-size: 1rem; }
+td, th { font-size: 0.95rem !important; font-family: "times new roman", serif !important; }
+.pagePL, .pageOnePL { position: relative; width: 100%; border-width: 3px; margin-bottom: 0; }
+/* end print styles */
+}
